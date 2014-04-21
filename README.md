@@ -1,0 +1,2 @@
+single-index-model
+==================

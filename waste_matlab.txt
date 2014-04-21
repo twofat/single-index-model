@@ -1,0 +1,63 @@
+function beta = est_beta(X, y)
+[n, q] = size(X);
+tempX = X(:);
+h = std(tempX)*n^(-1/6);
+C = -2/n/(n-1)/(h^(q+1));
+sum_k = zeros(1,q);
+for k = 1:(n-1)
+    for m = (k+1):n
+        temp = der_K((X(k,:)-X(m,:))/h);
+        temp = (temp .*(y(k)-y(m)))';
+        sum_k = sum_k+ temp;
+    end
+end
+if(n==1)
+  sum_result = 0;
+else
+  sum_result = sum_k;
+end
+  beta = sum_result .* C;
+end
+
+function beta = est_beta(X, y)
+[n, q] = size(X);
+tempX = X(:);
+h = std(tempX)*n^(-1/6);
+C = -2/n/(n-1)/(h^(q+1));
+sum_k = zeros(1,q);
+for k = 1:(n-1)
+    Xk = ones((n-k),q) * diag(X(k,:));
+    temp = der_K((Xk-X((k+1):n,:))/h);
+    temp = (temp * diag(y(k)-y((k+1):n,:)) )';
+    sum_temp = sum(temp);
+    sum_k = sum_k+ sum_temp;    
+end
+if(n==1)
+  sum_result = 0;
+else
+  sum_result = sum_k;
+end
+  beta = sum_result .* C;
+end
+
+function cov = est_cov(X, y)
+[n, q] = size(X);
+tempX = X(:);
+h = std(tempX)*n^(-1/6);
+C = 1/(n-1)/(h^(q+1));
+rmat = zeros(q);
+for m = 1:n
+    rm = zeros(q,1);
+    for k = 1:n
+        if k==m
+            continue
+        end
+        rtemp = C .* der_K((X(k,:)-X(m,:))/h) .* (y(k,:)-y(m,:));
+        rm = rm + rtemp;
+    end
+    rmat = rmat + (rm * rm') ./ n;
+end    
+beta = est_beta(X, y);
+cov = rmat - beta' * beta;
+end
+

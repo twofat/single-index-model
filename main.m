@@ -1,5 +1,5 @@
 n = 200;
-t0 = 1;
+t0 = 0.5;
 x1 = randn(n,1);
 x2 = random('exp',1,n,1);
 X = [x1,x2];
@@ -12,9 +12,9 @@ Y = [y1; y2];
 
 Calphaset = zeros(1,n-100);
 Tnset = zeros(1,n-100);
-for flag = 101:n
-    x = X(1:flag,:);
-    y = Y(1:flag,:);
+for flag = 105:5:n
+    x = X((flag-100):flag,:);
+    y = Y((flag-100):flag,:);
     [array, hset] = make_array(x,y);
     halfcov = est_cov(x,y,hset,array);
     [Tn,test] = est_Tn(x,halfcov,hset,array,0);

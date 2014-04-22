@@ -1,6 +1,6 @@
 function hafcov = est_cov(X, y,hset, array)
 [n, q] = size(X);
-nset = [20,50,100,200];
+nset = [5,10,30,100,200];
 tmp = find(nset>=n);
 horder = tmp(1);
 h = hset(horder);

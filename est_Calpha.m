@@ -6,5 +6,5 @@ for k = 1:iter
     tempX = X(sample,:);
     result(k) = est_Tn(tempX, halfcov, hset, array(:,sample,sample,:),0);
 end
-Calpha = quantile(result, 0.95);
+Calpha = quantile(result, 0.9);
 end

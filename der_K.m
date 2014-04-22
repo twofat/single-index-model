@@ -7,7 +7,7 @@ else
 end
 v = x;
 tmp2 =  v';
-tmp1 = exp(-0.5*diag(v*v'));
+tmp1 = exp(-0.5*sum(v.^2,2));
 tmp1 = diag(tmp1);
 result = C .* tmp2 * tmp1;
 end

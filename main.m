@@ -1,3 +1,5 @@
+RESULT = [];
+for zhangke = 1:100
 n = 200;
 t0 = 0.5;
 x1 = randn(n,1);
@@ -21,8 +23,13 @@ for flag = 105:5:n
     [Calpha, result] = est_Calpha(x,halfcov,hset,array,500);
     Calphaset(flag-100) = Calpha;
     Tnset(flag-100) = Tn;
-    disp([flag-100, Tn, Calpha]);
+%    disp([flag-100, Tn, Calpha]);
     if Calpha < Tn
         break;
     end
 end
+disp((flag-100)/5);
+RESULT = [RESULT (flag-100)/5];
+end
+
+

@@ -10,6 +10,7 @@ require(MASS)
     mvrnorm(n,rep(0,p),sigma)
   }
  
+
   matsqrt = function(x){
     eig = eigen(x)
     temp = diag(sqrt(eig$value))
